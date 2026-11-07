@@ -16,12 +16,28 @@ Bot de VRChat com memória persistente, inteligência avançada, GPU AMD RX 7900
 
 ---
 
+## Perfil 100% Local AI — Ollama
+
+A branch `experimental/ollama-local-ai` prepara o bot para usar Ollama como backend padrão, sem API keys de IA. O perfil usa LLM local, STT local, TTS local compatível com Qwen3-TTS e embeddings locais para memória semântica.
+
+Consulte o guia completo: [docs/OLLAMA-LOCAL-AI.md](docs/OLLAMA-LOCAL-AI.md).
+
+Modelos de exemplo:
+```bash
+ollama pull qwen3:14b
+ollama pull nomic-embed-text
+```
+
+A branch `main` não é modificada. O TTS local exige um servidor Qwen3-TTS que implemente o endpoint de streaming PCM documentado no guia; valide esse endpoint antes de considerar a voz pronta.
+
+---
+
 ## Requisitos
 
 - Linux Debian-based (Kodachios, Ubuntu, etc.)
 - GPU AMD RX 7900 XTX (gfx1100) com drivers ROCm instalados
 - Docker + Docker Compose
-- Chave Gemini API (gratuita em https://aistudio.google.com/apikey)
+- Ollama instalado e modelo local baixado (perfil Local AI não exige API key).
 
 ---
 
