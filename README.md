@@ -8,10 +8,10 @@ Bot de VRChat com memória persistente, inteligência avançada, GPU AMD RX 7900
 
 | Componente | Descrição |
 |---|---|
-| `gabriel` | Bot principal (Python, Gemini Live, ROCm/PyTorch) |
+| `gabriel` | Bot principal (Python, Ollama local, ROCm/PyTorch; Gemini opcional) |
 | `social-server` | Servidor de mensagens AI-to-AI (Node.js) |
 | WebUI | Painel de controle em `http://localhost:8766` |
-| Memória | SQLite persistente + RAG local (ChromaDB + LM Studio) |
+| Memória | SQLite persistente + RAG local (ChromaDB + Ollama) |
 | Áudio | TTS com cache LRU, noise gate, limiter soft-knee |
 
 ---
@@ -34,7 +34,7 @@ A branch `main` não é modificada. O TTS local exige um servidor Qwen3-TTS que 
 
 ## Requisitos
 
-- Linux Debian-based (Kodachios, Ubuntu, etc.)
+- Linux (Ryoku Linux / Arch-based, Ubuntu ou Debian)
 - GPU AMD RX 7900 XTX (gfx1100) com drivers ROCm instalados
 - Docker + Docker Compose
 - Ollama instalado e modelo local baixado (perfil Local AI não exige API key).
@@ -64,32 +64,34 @@ cd /home/kyroshix/KYROSHIX-Remastered
 
 ## Configuração
 
-### 1. Chave Gemini
+### 1. Backend Local AI
 
-Edite `config.yml` e defina sua chave:
+Na branch `experimental/ollama-local-ai`, o backend local é o padrão. Não configure `GABRIEL_GEMINI_API_KEY` e mantenha `gemini.api_key` vazio.
 
-```yaml
-gemini:
-  api_key: "SUA_CHAVE_GEMINI_AQUI"
-```
-
-Ou defina como variável de ambiente:
-
+Baixe os modelos locais:
 ```bash
-export GABRIEL_GEMINI_API_KEY="SUA_CHAVE_AQUI"
+ollama pull qwen3:14b
+ollama pull nomic-embed-text
 ```
 
-### 2. config.yml — ajustes recomendados
-
+Use os parâmetros de `config.yml.example` desta branch:
 ```yaml
-backend: "gemini_live"
+backend: "local"
+local:
+  llm:
+    base_url: "http://127.0.0.1:11434/v1"
+    model: "qwen3:14b"
+    api_key: ""
+tts:
+  provider: "qwen3_local"
 memory:
-  enabled: true
-  backend: "sqlite"
   rag_enabled: true
-  rag_provider: "local"   # totalmente offline
-backend: "gemini_live"
+  rag_provider: "local"
+  ollama_url: "http://127.0.0.1:11434"
+  ollama_embedding_model: "nomic-embed-text"
 ```
+
+O servidor Qwen3-TTS local deve corresponder ao endpoint de streaming PCM descrito em [docs/OLLAMA-LOCAL-AI.md](docs/OLLAMA-LOCAL-AI.md).
 
 ### 3. Credenciais WebUI
 
@@ -132,9 +134,6 @@ cd /home/kyroshix/KYROSHIX-Remastered
 pip install --break-system-packages -r requirements.txt
 pip install --break-system-packages pyaudio torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 pip install --break-system-packages google-genai python-osc pyyaml pedalboard opencv-python ultralytics bettercam mss aiohttp beautifulsoup4 Pillow scipy psutil colorama discord.py-self fastapi uvicorn python-multipart pytz nltk websockets chromadb transformers
-
-# Configure a chave Gemini
-export GABRIEL_GEMINI_API_KEY="SUA_CHAVE_AQUI"
 
 # Rode
 python3 main.py
