@@ -20,7 +20,7 @@ Bot de VRChat com memória persistente, inteligência avançada, GPU AMD RX 7900
 
 A branch `experimental/ollama-local-ai` prepara o bot para usar Ollama como backend padrão, sem API keys de IA. O perfil usa LLM local, STT local, TTS local compatível com Qwen3-TTS e embeddings locais para memória semântica. No cenário Hyper-V sem passthrough, o Ollama roda no Windows 11 com a RX 7900 XTX, enquanto o PyTorch do guest Linux usa wheels CPU.
 
-Consulte o guia completo: [docs/OLLAMA-LOCAL-AI.md](docs/OLLAMA-LOCAL-AI.md). Para Linux Mint em VM Hyper-V sem passthrough, com Ollama acelerado pela RX 7900 XTX no Windows 11 host, siga [docs/HYPERV-OLLAMA-HOST.md](docs/HYPERV-OLLAMA-HOST.md).
+Consulte o guia completo: [docs/OLLAMA-LOCAL-AI.md](docs/OLLAMA-LOCAL-AI.md). Para Linux Mint em VM Hyper-V sem passthrough, com Ollama acelerado pela RX 7900 XTX no Windows 11 host, siga [docs/HYPERV-OLLAMA-HOST.md](docs/HYPERV-OLLAMA-HOST.md). Para Ubuntu 24.04 no WSL2 com PyTorch ROCm 7.2 e RX 7900 XTX, siga [docs/WSL2-ROCM-RX7900XTX.md](docs/WSL2-ROCM-RX7900XTX.md) e execute `scripts/install-wsl-rocm.sh` dentro do Ubuntu.
 
 Para implantação em VM Linux Mint no Windows 11, diagnóstico da GPU AMD, limites de passthrough e integração OSC com VRChat no host, consulte [docs/LINUX-MINT-VM-SETUP.md](docs/LINUX-MINT-VM-SETUP.md). Diagnóstico somente leitura: `scripts/diagnose-linux-vm.sh`.
 
