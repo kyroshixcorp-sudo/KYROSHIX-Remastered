@@ -28,7 +28,10 @@ A VM não enxerga a RX 7900 XTX como dispositivo ROCm. PyTorch dentro do Mint us
 5. Teste localmente no Windows:
    ```powershell
    Invoke-RestMethod http://127.0.0.1:11434/api/tags
+   ollama run qwen3:8b "Responda apenas: GPU TESTE"
+   ollama ps
    ```
+   Durante a inferência, confira a coluna `PROCESSOR` em `ollama ps`. Se não indicar GPU, resolva primeiro o driver AMD ROCm v7/HIP7 ou o backend gráfico compatível no Windows; a conectividade da VM não corrige aceleração ausente.
 
 > Segurança: a API padrão do Ollama não exige autenticação. Não encaminhe a porta 11434 para a Internet nem crie regra de firewall aberta para qualquer origem.
 
@@ -41,7 +44,7 @@ ip route
 Identifique o endereço após `default via`. Em muitas configurações do Default Switch do Hyper-V, esse gateway é o endereço do host visível pelo guest. Não presuma que será sempre o mesmo: confirme com:
 ```bash
 HOST_IP="$(ip route | awk '/^default/ {print $3; exit}')"
-printf 'Windows host: %s\\n' "$HOST_IP"
+printf 'Windows host: %s\n' "$HOST_IP"
 curl --connect-timeout 5 "http://$HOST_IP:11434/api/tags"
 ```
 
