@@ -26,6 +26,16 @@ fi
 export UV_PROJECT_ENVIRONMENT="${UV_PROJECT_ENVIRONMENT:-.venv-wsl-rocm}"
 VENV_PYTHON="$UV_PROJECT_ENVIRONMENT/bin/python"
 
+if ! command -v rocminfo >/dev/null 2>&1; then
+  echo "ERROR: rocminfo not found. Install AMD WSL runtime first (see docs/WSL2-ROCM-RX7900XTX.md)." >&2
+  exit 1
+fi
+
+if ! rocminfo | grep -q 'gfx1100'; then
+  echo "ERROR: ROCm did not expose gfx1100. Check the Windows WSL driver and AMD runtime." >&2
+  exit 1
+fi
+
 echo "[1/3] Syncing project into isolated environment: $UV_PROJECT_ENVIRONMENT"
 uv sync --python 3.12
 
@@ -42,17 +52,7 @@ uv pip install --python "$VENV_PYTHON" --reinstall \
   "https://repo.radeon.com/rocm/manylinux/rocm-rel-7.2/torchaudio-2.9.0%2Brocm7.2.0.gite3c6ee2b-cp312-cp312-linux_x86_64.whl" \
   "https://repo.radeon.com/rocm/manylinux/rocm-rel-7.2/triton-3.5.1%2Brocm7.2.0.gita272dfa8-cp312-cp312-linux_x86_64.whl"
 
-echo "[3/3] Verifying ROCm and RX 7900 XTX"
-if ! command -v rocminfo >/dev/null 2>&1; then
-  echo "ERROR: rocminfo not found. Install AMD WSL runtime first (see docs/WSL2-ROCM-RX7900XTX.md)." >&2
-  exit 1
-fi
-
-if ! rocminfo | grep -q 'gfx1100'; then
-  echo "ERROR: ROCm did not expose gfx1100. Check the Windows WSL driver and AMD runtime." >&2
-  exit 1
-fi
-
+echo "[3/3] Verifying PyTorch ROCm and RX 7900 XTX"
 "$VENV_PYTHON" - <<'PY'
 import torch
 
