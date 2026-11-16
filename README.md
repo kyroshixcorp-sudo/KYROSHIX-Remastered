@@ -18,7 +18,7 @@ Bot de VRChat com memória persistente, inteligência avançada, GPU AMD RX 7900
 
 ## Perfil 100% Local AI — Ollama
 
-A branch `experimental/ollama-local-ai` prepara o bot para usar Ollama como backend padrão, sem API keys de IA. O perfil usa LLM local, STT local, TTS local compatível com Qwen3-TTS e embeddings locais para memória semântica.
+A branch `experimental/ollama-local-ai` prepara o bot para usar Ollama como backend padrão, sem API keys de IA. O perfil usa LLM local, STT local, TTS local compatível com Qwen3-TTS e embeddings locais para memória semântica. No cenário Hyper-V sem passthrough, o Ollama roda no Windows 11 com a RX 7900 XTX, enquanto o PyTorch do guest Linux usa wheels CPU.
 
 Consulte o guia completo: [docs/OLLAMA-LOCAL-AI.md](docs/OLLAMA-LOCAL-AI.md). Para Linux Mint em VM Hyper-V sem passthrough, com Ollama acelerado pela RX 7900 XTX no Windows 11 host, siga [docs/HYPERV-OLLAMA-HOST.md](docs/HYPERV-OLLAMA-HOST.md).
 
