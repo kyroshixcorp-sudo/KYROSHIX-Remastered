@@ -22,6 +22,8 @@ A branch `experimental/ollama-local-ai` prepara o bot para usar Ollama como back
 
 Consulte o guia completo: [docs/OLLAMA-LOCAL-AI.md](docs/OLLAMA-LOCAL-AI.md).
 
+Para implantação em VM Linux Mint no Windows 11, diagnóstico da GPU AMD, limites de passthrough e integração OSC com VRChat no host, consulte [docs/LINUX-MINT-VM-SETUP.md](docs/LINUX-MINT-VM-SETUP.md). Diagnóstico somente leitura: `scripts/diagnose-linux-vm.sh`.
+
 Modelos de exemplo:
 ```bash
 ollama pull qwen3:14b
