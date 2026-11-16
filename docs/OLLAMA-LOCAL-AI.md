@@ -13,12 +13,14 @@ Esta branch prepara o backend local como padrão. A branch `main` não é altera
 
 ## Preparação no Ryoku Linux ou Linux Mint VM
 
+Para Linux Mint executado como guest no Hyper-V sem passthrough, use o Ollama do Windows 11 host. O guia específico está em [HYPERV-OLLAMA-HOST.md](HYPERV-OLLAMA-HOST.md). Nesse cenário, `local.llm.base_url` e `memory.ollama_url` devem apontar para o IPv4 do host, não para `127.0.0.1` do guest.
+
 Para uma VM com 12 GB de RAM, o perfil inicial usa `qwen3:8b` para manter margem para o sistema, contexto e serviços auxiliares. Com GPU de 24 GB devidamente exposta ao guest, avalie modelos maiores somente depois de medir VRAM/RAM e latência.
 
 1. Confirme o serviço Ollama:
    ```bash
    systemctl --user status ollama
-   curl http://127.0.0.1:11434/api/tags
+   curl http://<WINDOWS_HOST_IP>:11434/api/tags
    ```
    Se estiver instalado como serviço de sistema, use `sudo systemctl status ollama`.
 
@@ -30,7 +32,7 @@ Para uma VM com 12 GB de RAM, o perfil inicial usa `qwen3:8b` para manter margem
 
 3. Faça backup do `config.yml` atual e configure os valores equivalentes ao `config.yml.example` desta branch:
    - `backend: "local"`
-   - `local.llm.base_url: "http://127.0.0.1:11434/v1"`
+   - `local.llm.base_url: "http://<WINDOWS_HOST_IP>:11434/v1"`
    - `local.llm.model: "qwen3:8b"`
    - `local.llm.api_key: ""`
    - `tts.provider: "qwen3_local"`
@@ -38,7 +40,7 @@ Para uma VM com 12 GB de RAM, o perfil inicial usa `qwen3:8b` para manter margem
 
 4. Teste o LLM sem iniciar o bot:
    ```bash
-   curl http://127.0.0.1:11434/v1/chat/completions \
+   curl http://<WINDOWS_HOST_IP>:11434/v1/chat/completions \
      -H 'Content-Type: application/json' \
      -d '{"model":"qwen3:8b","messages":[{"role":"user","content":"Responda apenas: Ollama OK"}]}'
    ```
