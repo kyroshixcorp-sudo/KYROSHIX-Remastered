@@ -81,7 +81,7 @@ Use os parâmetros de `config.yml.example` desta branch:
 backend: "local"
 local:
   llm:
-    base_url: "http://127.0.0.1:11434/v1"
+    base_url: "http://<WINDOWS_HOST_IP>:11434/v1"
     model: "qwen3:8b"
     api_key: ""
 tts:
@@ -89,7 +89,7 @@ tts:
 memory:
   rag_enabled: true
   rag_provider: "local"
-  ollama_url: "http://127.0.0.1:11434"
+  ollama_url: "http://<WINDOWS_HOST_IP>:11434"
   ollama_embedding_model: "nomic-embed-text"
 ```
 
