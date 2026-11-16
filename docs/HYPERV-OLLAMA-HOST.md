@@ -51,7 +51,7 @@ Se a VM usa um switch virtual External, Internal ou NAT personalizado, use o IP 
 
 Primeiro obtenha o IPv4 atual do guest com `ip -4 addr` no Mint. No PowerShell elevado do Windows, crie uma regra limitada ao IP do guest (substitua o endereço):
 ```powershell
-New-NetFirewallRule -DisplayName "KYROSHIX Ollama from Hyper-V guest" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 11434 -RemoteAddress 172.28.224.10 -Profile Private
+New-NetFirewallRule -DisplayName "KYROSHIX Ollama from Hyper-V guest" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 11434 -RemoteAddress 172.28.224.10 -Profile Any
 ```
 
 Substitua `172.28.224.10` pelo IPv4 real da VM. Se o IP do guest mudar por DHCP, atualize a regra ou configure uma reserva DHCP no switch/rede que você controla. Não use `Any` como origem e não exponha a porta no roteador.
