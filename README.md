@@ -26,7 +26,7 @@ Para implantação em VM Linux Mint no Windows 11, diagnóstico da GPU AMD, limi
 
 Modelos de exemplo:
 ```bash
-ollama pull qwen3:14b
+ollama pull qwen3:8b
 ollama pull nomic-embed-text
 ```
 
@@ -72,7 +72,7 @@ Na branch `experimental/ollama-local-ai`, o backend local é o padrão. Não con
 
 Baixe os modelos locais:
 ```bash
-ollama pull qwen3:14b
+ollama pull qwen3:8b
 ollama pull nomic-embed-text
 ```
 
@@ -82,7 +82,7 @@ backend: "local"
 local:
   llm:
     base_url: "http://127.0.0.1:11434/v1"
-    model: "qwen3:14b"
+    model: "qwen3:8b"
     api_key: ""
 tts:
   provider: "qwen3_local"
