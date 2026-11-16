@@ -196,7 +196,7 @@ gemini:
 #   3. Linux can use faster-whisper or the local Parakeet runtime.
 local:
   llm:
-    # Ollama on the Windows 11 host (Hyper-V guest). Replace with the host/gateway IPv4 from `ip route` in Mint.
+    # Ollama on the Windows 11 host. For Hyper-V NAT or WSL2 NAT, replace with the host/gateway IPv4 found via `ip route` in the Linux guest.
     # Example only: http://172.28.224.1:11434/v1
     base_url: "http://<WINDOWS_HOST_IP>:11434/v1"
     # Pull with: ollama pull qwen3:8b
