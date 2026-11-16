@@ -198,8 +198,8 @@ local:
   llm:
     # Ollama OpenAI-compatible endpoint. No API key is required.
     base_url: "http://127.0.0.1:11434/v1"
-    # Pull with: ollama pull qwen3:14b
-    model: "qwen3:14b"
+    # Pull with: ollama pull qwen3:8b
+    model: "qwen3:8b"
     api_key: ""
     temperature: 0.8
     top_p: 0.95
