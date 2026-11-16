@@ -62,6 +62,9 @@ O projeto atual tem uma resolução PyTorch CPU para o perfil Hyper-V sem passth
 No Ubuntu, instale o uv caso ainda não esteja disponível e entre na raiz do repositório:
 
 ```bash
+sudo apt install -y curl
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source "$HOME/.local/bin/env"
 python3 --version
 uv --version
 ```
